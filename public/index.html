@@ -105,10 +105,10 @@
         <input type="file" id="imageInput" accept="image/*">
         
         <div class="predefined-backgrounds">
-            <img src="background1.jpg" class="background-thumbnail" alt="Background 1">
-            <img src="background2.jpg" class="background-thumbnail" alt="Background 2">
-            <img src="background3.jpg" class="background-thumbnail" alt="Background 3">
-            <!-- Add more predefined backgrounds here -->
+           <img src="bg1.png" class="background-thumbnail" alt="Background 1">
+            <img src="bg2.jpg" class="background-thumbnail" alt="Background 2">
+            <img src="bg3.jpg" class="background-thumbnail" alt="Background 3">
+            <img src="bg4.jpeg" class="background-thumbnail" alt="Background 4">
         </div>
 
         <input type="file" id="backgroundInput" accept="image/*">
@@ -124,7 +124,7 @@
         let backgroundImage = null;
         let foregroundWidth, foregroundHeight;
 
-        // Load the foreground image (with background removed)
+       
         document.getElementById('imageInput').addEventListener('change', async (event) => {
             const file = event.target.files[0];
             const formData = new FormData();
@@ -141,7 +141,7 @@
             const blob = await response.blob();
             foregroundImage = await loadImage(URL.createObjectURL(blob));
 
-            // Set the canvas size to the size of the foreground image
+            
             foregroundWidth = foregroundImage.width;
             foregroundHeight = foregroundImage.height;
             canvas.width = foregroundWidth;
@@ -150,7 +150,7 @@
             drawImages();
         });
 
-        // Handle predefined background selection
+        
         thumbnails.forEach(thumbnail => {
             thumbnail.addEventListener('click', async () => {
                 thumbnails.forEach(t => t.classList.remove('selected'));
@@ -161,30 +161,30 @@
             });
         });
 
-        // Handle custom background upload
+       
         document.getElementById('backgroundInput').addEventListener('change', async (event) => {
             const file = event.target.files[0];
             backgroundImage = await loadImage(URL.createObjectURL(file));
             drawImages();
         });
 
-        // Function to draw images on the canvas
+        
         function drawImages() {
             if (foregroundImage) {
                 // Clear the canvas
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Draw the background image, scaled to fit the canvas
+                
                 if (backgroundImage) {
                     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
                 }
 
-                // Draw the foreground image on top
+                
                 ctx.drawImage(foregroundImage, 0, 0, canvas.width, canvas.height);
             }
         }
 
-        // Function to download the image
+        
         document.getElementById('downloadButton').addEventListener('click', () => {
             const link = document.createElement('a');
             link.download = 'edited-image.png';
@@ -192,7 +192,7 @@
             link.click();
         });
 
-        // Utility function to load images
+        
         function loadImage(src) {
             return new Promise((resolve) => {
                 const img = new Image();
